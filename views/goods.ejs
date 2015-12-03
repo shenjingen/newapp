@@ -1,0 +1,123 @@
+<%- include common/header %>
+	<div class="explain_modal" >
+		<i class="explain_lou explain_icon" style="display:none"></i>
+		<i class="explain_tuan explain_icon"></i>
+		<div id="showExplain" style="display:none">
+			<div class="showBg">
+
+			</div>
+		</div>
+	</div>
+    <div class="container">
+        <section class="main-view">
+            <div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
+                <div class="hd">
+                    <ul>
+						
+                    </ul>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li v-for="data in imgs"><img src="{{data}}" /></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tm" id="product">
+                <div class="td2">
+                    <div class="td2_name">{{title}}</div>
+                    <div class="td2_cx">{{info}}</div>
+                    <div class="td2_info">
+                        <div class="td2_price">市场价：<b id="market_price">{{ori_price}}</b> <span>已售：<i id="sold_quantity">{{sell}}</i>件</span></div>
+                        <div class="td2_num">支付开团并邀请<span id="tuan_more_need_number">{{m_number-1}}</span>人参团，人数不足自动退款，详见下方拼团玩法</div>
+                    </div>
+                </div>
+                <div class="kt">
+                    <a id="tuan_more_btn" class="kt_item" href="__APP__/order_checkout/{{id}}/?tuan=more">
+                        <div class="kt_price"><b id="tuan_more_price"></b><i>{{price}} / </i>件</div>
+                        <div class="kt_btn"><b id="tuan_more_number">{{m_number}}人团购</b></div>
+                    </a>
+                    <a id="tuan_one_btn" class="kt_item kt_item_buy" href="__APP__/order_checkout/{{id}}/?tuan=one">
+                        <div class="kt_price"><b id="tuan_one_price"></b><i>{{ori_price}} / </i>件</div>
+                        <div class="kt_btn" id="tuan_one_number">单独购买</div>
+                    </a>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step_hd">
+                    拼团玩法<a class="step_more" href="__APP__/tuan_rule">查看详情</a>
+                </div>
+                <div id="footItem" class="step_list">
+                    <div class="step_item step_item_on">
+                        <div class="step_num">1</div>
+                        <div class="step_detail">
+                            <p class="step_tit">选择
+                                <br>心仪商品</p>
+                        </div>
+                    </div>
+                    <div class="step_item ">
+                        <div class="step_num">2</div>
+                        <div class="step_detail">
+                            <p class="step_tit">支付开团
+                                <br>或参团</p>
+                        </div>
+                    </div>
+                    <div class="step_item ">
+                        <div class="step_num">3</div>
+                        <div class="step_detail">
+                            <p class="step_tit">等待好友
+                                <br>参团支付</p>
+                        </div>
+                    </div>
+                    <div class="step_item">
+                        <div class="step_num">4</div>
+                        <div class="step_detail">
+                            <p class="step_tit">达到人数
+                                <br>团购成功</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+	<script src="/javascripts/TouchSlide.1.1.js"></script>
+	<script>
+	var json = <%- JSON.stringify(data) %>;
+	json = JSON.parse(json);
+	var product = new Vue({
+	  el: '#product',
+	  data: {
+		id:json.id,
+		title:json.title,
+		info:json.info,
+		ori_price:json.ori_price,
+		m_number:json.m_number,
+		price:json.price,
+		ori_price:json.ori_price,
+		sell:json.sell
+	  }
+	})
+	var img = json.max_img;
+	img = img.split(",");
+	var slide = new Vue({
+	  el: '#focus',
+	  data: {
+		imgs:img
+	  }
+	})
+	document.onreadystatechange = function(){   
+		if(document.readyState=="complete") { 
+			console.log("数据加载完成");
+			TouchSlide({ 
+				slideCell:"#focus",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd ul", 
+				effect:"left", 
+				autoPlay:true,//自动播放
+				autoPage:true, //自动分页
+				switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+			});
+		} 
+	}
+	</script>
+	<%- include common/menu %>
+<%- include common/footer %>

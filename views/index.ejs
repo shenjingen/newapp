@@ -1,0 +1,60 @@
+<%- include common/header %>
+    <div class="explain_modal" >
+		<i class="explain_lou explain_icon" style="display:none"></i>
+		<i class="explain_tuan explain_icon"></i>
+		<div id="showExplain" style="display:none">
+			<div class="showBg">
+
+			</div>
+		</div>
+	</div>
+
+    <div class="container">   
+        <section class="main-view">
+            <div class="tuan" style="min-height: 10px;">
+               <!-- <img src="demoimg/announcement2_8b18fbb.jpg">-->
+            </div>
+            <div id="tuan" class="tuan" style="padding-top: 10px; display: block;">
+                <div id="products">
+                    <div  v-for="item in items" class="tuan_g">
+                        <a href="/goods?id={{ item.id }}">
+                            <div class="tuan_g_img">
+                                <img src="{{ item.img }}">
+                                <span class="tuan_mark tuan_mark2">
+                                <b>{{ item.discount }}折</b>
+                                <span>{{ item.m_number }}人团</span>
+                                </span>
+                            </div>
+                            <div class="tuan_g_info">
+                                <p class="tuan_g_name">{{ item.title }}</p>
+                                <p class="tuan_g_cx">{{ item.info }}</p>
+                            </div>
+                            <div class="tuan_g_core">
+                                <div class="tuan_g_price">
+                                    <span>{{ item.m_number }}人团</span>
+                                    <b>¥{{ item.price }}</b>
+                                </div>
+                                <div class="tuan_g_btn">去开团</div>
+                            </div>
+                            <div class="tuan_g_mprice">市场价：
+                                <del>¥{{ item.ori_price }}</del>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+	<script>
+	var json = <%- JSON.stringify(data) %>;
+	json = JSON.parse(json);
+	var products = new Vue({
+	  el: '#products',
+	  data: {
+		items:json
+	  }
+	})
+	</script>
+	<%- include common/menu %>
+<%- include common/footer %>
+

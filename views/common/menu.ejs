@@ -1,0 +1,20 @@
+<footer class="footer">
+	<nav>
+		<ul>
+			<li><a href="/" class="nav-controller"><i class="fb-home"></i>首页</a></li>
+			<li><a href="/groups/" class="nav-controller"><i class="fb-group"></i>我的团</a></li>
+			<li><a id="order" href="/orders/" class="nav-controller"><i class="fb-list"></i>我的订单</a></li>
+			<li><a href="/personal/" class="nav-controller"><i class="fb-user"></i>个人中心</a></li>
+		</ul>
+	</nav>
+</footer>
+<script>
+$(function(){
+	$(".nav-controller").each(function(){
+		$this = $(this);
+		if($this[0].href==String(window.location)){
+			$this.addClass("active");
+		}    
+	});
+})
+</script>
